@@ -1,0 +1,71 @@
+<input type = "text" id="findUrl" placeholder="find url">
+<input type = "text" id="replaceUrl" placeholder="replace url">
+<button onClick="mapUrl()">Map</button>
+
+<table id="myTable">
+  <tr>
+    <td>Find Url</td>
+    <td>Find Img</td>
+    <td>Replace Url</td>
+    <td>Replace Img</td>
+  </tr>
+</table>
+
+<input type='file' onchange='openFile(event)' multiple>
+
+<script>
+    
+function insertRow(cell1C, cell2C, cell3C, cell4C) {
+  var table = document.getElementById("myTable");
+  var row = table.insertRow(1);
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  var cell3 = row.insertCell(2);
+  var cell4 = row.insertCell(3);
+  cell1.innerHTML = cell1C;
+  cell2.innerHTML = cell2C;
+  cell3.innerHTML = cell3C;
+  cell4.innerHTML = cell4C;
+}
+
+function mapUrl(){
+    var find = document.getElementById('findUrl').value.split(',');
+    var replace = document.getElementById('replaceUrl').value.split(',');
+    
+    var len = find.length;
+    
+        for(var i=0; i<len; i++){
+    var urlF = `<input type='text' value='${find[i]}' >`;
+    var imgF = `<img src='${find[i]}'>`;
+        var urlR = `<input type='text' value='${replace[i]}' >`;
+    var imgR = `<img src='${replace[i]}' >`;
+    
+    insertRow(urlF, imgF, imgR, urlR);
+    
+    }
+    
+}
+    
+    function openFile (event) {
+        var input = event.target;
+        console.log(event);
+            var find = document.getElementById('findUrl').value.split(',');
+    var replace = document.getElementById('replaceUrl').value.split(',');
+            var len = find.length;
+
+        var reader = new FileReader();
+        reader.onload = function(){
+          var text = reader.result;
+          console.log('original', text);
+        for(var i=0; i<len; i++){
+        //    text = text.replace(find[i], replace[i]);
+            text = text.split(find[i]).join(replace[i]);
+//            text = text.replace(`/${find[i]}/g`, replace[i]);
+            console.log('replaced', text);
+        }
+
+        };
+        reader.readAsText(input.files[0]);
+      }
+</script>
+

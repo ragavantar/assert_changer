@@ -1,0 +1,45 @@
+<script>
+let a = document.createElement('a');
+a.href = "data:application/octet-stream,"+encodeURIComponent("My DATA");
+a.download = 'abc.txt';
+a.click();
+</script>
+
+<!--https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server-->
+
+<script>
+      var openFile = function(event) {
+        var input = event.target;
+
+        var reader = new FileReader();
+        reader.onload = function(){
+          var text = reader.result;
+          var node = document.getElementById('output');
+          node.innerText = text;
+          console.log(reader.result.substring(0, 200));
+        };
+        reader.readAsText(input.files[0]);
+      };
+    </script>
+    <body>
+    <input type='file' onchange='openFile(event)'><br>
+    <div id='output'>
+    ...
+    </div>
+ 
+<!--https://www.w3schools.com/jsref/jsref_replace.asp-->
+<!--
+        https://flaviocopes.com/how-to-replace-all-occurrences-string-javascript/
+        http://net-informations.com/js/iq/repl.htm
+-->
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+  var str = "How are you doing today?";
+  var res = str.split(" ");
+  document.getElementById("demo").innerHTML = res;
+}
+</script>
