@@ -27,7 +27,6 @@ function insertRow(cell1C, cell2C, cell3C, cell4C) {
   cell3.innerHTML = cell3C;
   cell4.innerHTML = cell4C;
 }
-
 function mapUrl(){
     var find = document.getElementById('findUrl').value.split(',');
     var replace = document.getElementById('replaceUrl').value.split(',');
@@ -53,19 +52,29 @@ function mapUrl(){
     var replace = document.getElementById('replaceUrl').value.split(',');
             var len = find.length;
 
+
+
+for(var f=0; f < input.files.length; f++){
+  var fName = input.files[f].name;
+      let a = document.createElement("a");
+      a.download = fName;
         var reader = new FileReader();
-        reader.onload = function(){
+        reader.onload = function(e){
           var text = reader.result;
-          console.log('original', text);
+          // console.log('original', text);
         for(var i=0; i<len; i++){
         //    text = text.replace(find[i], replace[i]);
             text = text.split(find[i]).join(replace[i]);
 //            text = text.replace(`/${find[i]}/g`, replace[i]);
-            console.log('replaced', text);
-        }
+            // console.log('replaced', text);
+        }   
+      a.href = "data:application/octet-stream," + encodeURIComponent(text);
 
+      a.click();
         };
-        reader.readAsText(input.files[0]);
+        reader.readAsText(input.files[f]);
+        reader.onloadend = ()=>f++;
+
+}
       }
 </script>
-
